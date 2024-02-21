@@ -36,3 +36,16 @@ jobs:
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
           file: "./app/target/verademo.war"
+
+      - name: Verracode Container/IaC/Secrets action step
+        uses: veracode/container_iac_secrets_scanning@v1.0.0
+        with:
+          file: 'app/target/verademo.war'
+          vid: ${{ secrets.VID }}
+          vkey: ${{ secrets.VKEY }}
+          command: "scan" 
+          type: "directory"
+          source: "./"
+          format: "json"
+          debug: false
+          fail_build: false
