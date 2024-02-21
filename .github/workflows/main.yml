@@ -19,14 +19,14 @@ jobs:
       - name: List contents of project directory
         run: find . -name "*.war"
       
-      - name: Print current working directory
-        run: ls -R
+      # - name: Print current working directory
+      #   run: ls -R
       
-      # get the compiled binary from a previous job
-      - name: get archive
-        uses: actions/download-artifact@v3
-        with:
-          name: app/target/verademo.war
+      # # get the compiled binary from a previous job
+      # - name: get archive
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: app/target/verademo.war
 
       # run the pipeline scan action
       - name: pipeline-scan action step
