@@ -15,6 +15,9 @@ jobs:
 
       - name: Build war file
         run: mvn clean package --file app/pom.xml
+
+      - name: List contents of project directory
+        run: find . -name "*.war"
       
       # get the compiled binary from a previous job
       - name: get archive
