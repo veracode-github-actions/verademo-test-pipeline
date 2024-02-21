@@ -26,7 +26,7 @@ jobs:
       - name: get archive
         uses: actions/download-artifact@v3
         with:
-          name: "./app/target/verademo 0.0.1-SNAPSHOT.war"
+          name: "./app/target/verademo.war"
 
       # run the pipeline scan action
       - name: pipeline-scan action step
@@ -35,4 +35,4 @@ jobs:
         with:
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
-          file: "./app/target/verademo 0.0.1-SNAPSHOT.war"
+          file: "./app/target/verademo.war"
