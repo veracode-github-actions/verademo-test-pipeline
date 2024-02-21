@@ -19,6 +19,9 @@ jobs:
       - name: List contents of project directory
         run: find . -name "*.war"
       
+      - name: Print current working directory
+        run: pwd
+      
       # get the compiled binary from a previous job
       - name: get archive
         uses: actions/download-artifact@v3
