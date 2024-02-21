@@ -20,7 +20,7 @@ jobs:
         run: find . -name "*.war"
       
       - name: Print current working directory
-        run: pwd
+        run: ls -R
       
       # get the compiled binary from a previous job
       - name: get archive
