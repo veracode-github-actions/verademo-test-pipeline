@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
+
+      - name: Build war file
+        run: mvn clean build --file app/pom.xml
       
       # get the compiled binary from a previous job
       - name: get archive
