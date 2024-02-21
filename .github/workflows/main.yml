@@ -26,7 +26,7 @@ jobs:
       - name: get archive
         uses: actions/download-artifact@v3
         with:
-          name: "./app/target/verademo.war"
+          name: app/target/verademo.war
 
       # run the pipeline scan action
       - name: pipeline-scan action step
