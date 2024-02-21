@@ -22,6 +22,7 @@ jobs:
       # get the compiled binary from a previous job
       - name: get archive
         uses: actions/download-artifact@v3
+        run: pwd
         with:
           name: ./app/target/verademo 0.0.1-SNAPSHOT.war
 
