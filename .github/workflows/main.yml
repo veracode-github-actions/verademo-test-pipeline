@@ -10,14 +10,14 @@ jobs:
 
 
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
+      # - name: checkout repo
+      #   uses: actions/checkout@v3
 
-      - name: Build war file
-        run: mvn clean package --file app/pom.xml
+      # - name: Build war file
+      #   run: mvn clean package --file app/pom.xml
 
-      - name: List contents of project directory
-        run: find . -name "*.war"
+      # - name: List contents of project directory
+      #   run: find . -name "*.war"
       
       # - name: Print current working directory
       #   run: ls -R
@@ -29,13 +29,13 @@ jobs:
       #     name: app/target/verademo.war
 
       # run the pipeline scan action
-      - name: pipeline-scan action step
-        id: pipeline-scan
-        uses: veracode/Veracode-pipeline-scan-action@v1.0.12
-        with:
-          vid: ${{ secrets.VID }}
-          vkey: ${{ secrets.VKEY }}
-          file: "./app/target/verademo.war"
+      # - name: pipeline-scan action step
+      #   id: pipeline-scan
+      #   uses: veracode/Veracode-pipeline-scan-action@v1.0.12
+      #   with:
+      #     vid: ${{ secrets.VID }}
+      #     vkey: ${{ secrets.VKEY }}
+      #     file: "./app/target/verademo.war"
 
       - name: Verracode Container/IaC/Secrets action step
         uses: veracode/container_iac_secrets_scanning@v1.0.0
