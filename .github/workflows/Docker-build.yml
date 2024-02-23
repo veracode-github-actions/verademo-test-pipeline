@@ -1,7 +1,7 @@
-name: Veracode_Docker_scan
-on:
-  push:
-    branches: [ main ]
+# name: Veracode_Docker_scan
+# on:
+#   push:
+#     branches: [ main ]
 
 jobs:
   veracode-sca-task:

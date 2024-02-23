@@ -10,42 +10,59 @@ jobs:
 
 
     steps:
-      # - name: checkout repo
-      #   uses: actions/checkout@v3
+      - name: checkout repo
+        uses: actions/checkout@v3
 
-      # - name: Build war file
-      #   run: mvn clean package --file app/pom.xml
+      - name: Build war file
+        run: mvn clean package --file app/pom.xml
 
-      # - name: List contents of project directory
-      #   run: find . -name "*.war"
+      - name: List contents of project directory
+        run: find . -name "*.war"
       
-      # - name: Print current working directory
-      #   run: ls -R
+      - name: Print current working directory
+        run: ls -R
       
-      # # get the compiled binary from a previous job
-      # - name: get archive
-      #   uses: actions/download-artifact@v3
-      #   with:
-      #     name: app/target/verademo.war
 
       # run the pipeline scan action
-      # - name: pipeline-scan action step
-      #   id: pipeline-scan
-      #   uses: veracode/Veracode-pipeline-scan-action@v1.0.12
-      #   with:
-      #     vid: ${{ secrets.VID }}
-      #     vkey: ${{ secrets.VKEY }}
-      #     file: "./app/target/verademo.war"
-
-      - name: Verracode Container/IaC/Secrets action step
-        uses: veracode/container_iac_secrets_scanning@v1.0.0
+      - name: pipeline-scan action step
+        id: pipeline-scan
+        uses: veracode/Veracode-pipeline-scan-action@v1.0.12
         with:
-          # file: 'app/target/verademo.war'
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
-          command: "scan" 
-          type: "directory"
-          source: "./"
-          format: "json"
-          debug: false
-          fail_build: false
+          file: "./app/target/verademo.war"
+
+
+      results_to_sarif:
+        needs: pipeline_scan
+        runs-on: ubuntu-latest
+        name: import pipeline results to sarif
+        steps:
+          - name: Convert pipeline scan output to SARIF format
+            id: convert
+            uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.7
+            with:
+              pipeline-results-json: results.json
+              output-results-sarif: veracode-results.sarif
+              source-base-path-1: "^com/veracode:src/main/java/com/veracode"
+              source-base-path-2: "^WEB-INF:src/main/webapp/WEB-INF"
+
+          - name: upload sarif file to repository
+            uses: github/codeql-action/upload-sarif@v2
+            with: # Path to SARIF file relative to the root of the repository
+              sarif_file: veracode-results.sarif
+
+      
+
+      # - name: Verracode Container/IaC/Secrets action step
+      #   uses: veracode/container_iac_secrets_scanning@v1.0.0
+      #   with:
+      #     # file: 'app/target/verademo.war'
+      #     vid: ${{ secrets.VID }}
+      #     vkey: ${{ secrets.VKEY }}
+      #     command: "scan" 
+      #     type: "directory"
+      #     source: "./"
+      #     format: "json"
+      #     debug: false
+      #     fail_build: false
