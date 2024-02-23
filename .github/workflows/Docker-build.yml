@@ -1,0 +1,19 @@
+name: Veracode_Docker_scan
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  veracode-sca-task:
+    runs-on: ubuntu-latest
+    name: pipeline
+
+    steps:
+      # - name: checkout repo
+      #   uses: actions/checkout@v3
+      
+      - name: Checkout code
+        uses: actions/checkout@v2  # This step checks out your repository's code
+    
+      - name: Build Docker image
+        run: docker build -t your-image-veracode:latest .
