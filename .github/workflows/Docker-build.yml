@@ -17,3 +17,6 @@ jobs:
     
       - name: Build Docker image
         run: docker build -t your-image-veracode:latest .
+
+      - name: List of images
+        run: docker image ls
