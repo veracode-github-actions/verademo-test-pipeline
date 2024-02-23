@@ -1,7 +1,7 @@
-name: Veracode_pipeline_scan
-on:
-  push:
-    branches: [ main ]
+# name: Veracode_pipeline_scan
+# on:
+#   push:
+#     branches: [ main ]
 
 permissions: 
     security-events: write
