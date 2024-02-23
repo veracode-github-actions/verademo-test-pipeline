@@ -31,21 +31,22 @@ jobs:
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
           file: "./app/target/verademo.war"
-
-
-      - name: Convert pipeline scan output to SARIF format
-        id: convert
-        uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.7
-        with:
           pipeline-results-json: results.json
-          output-results-sarif: veracode-results.sarif
-          source-base-path-1: "^com/veracode:src/main/java/com/veracode"
-          source-base-path-2: "^WEB-INF:src/main/webapp/WEB-INF"
 
-      - name: upload sarif file to repository
-        uses: github/codeql-action/upload-sarif@v2
-        with: # Path to SARIF file relative to the root of the repository
-          sarif_file: veracode-results.sarif
+
+      # - name: Convert pipeline scan output to SARIF format
+      #   id: convert
+      #   uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.7
+      #   with:
+      #     pipeline-results-json: results.json
+      #     output-results-sarif: veracode-results.sarif
+      #     source-base-path-1: "^com/veracode:src/main/java/com/veracode"
+      #     source-base-path-2: "^WEB-INF:src/main/webapp/WEB-INF"
+
+      # - name: upload sarif file to repository
+      #   uses: github/codeql-action/upload-sarif@v2
+      #   with: # Path to SARIF file relative to the root of the repository
+      #     sarif_file: veracode-results.sarif
 
       
 
