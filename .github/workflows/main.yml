@@ -31,7 +31,7 @@ jobs:
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
           file: "./app/target/verademo.war"
-          pipeline-results-json: results.json
+          json_output_file: results.json
 
 
       # - name: Convert pipeline scan output to SARIF format
