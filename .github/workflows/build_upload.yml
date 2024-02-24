@@ -1,0 +1,41 @@
+# name: Veracode_pipeline_scan
+# on:
+#   push:
+#     branches: [ main ]
+
+permissions: 
+    security-events: write
+
+jobs:
+  veracode-sca-task:
+    runs-on: ubuntu-latest
+    name: pipeline
+
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+
+      - name: Build war file
+        run: mvn clean package --file app/pom.xml
+
+      - name: List contents of project directory
+        run: find . -name "*.war"
+      
+      - name: Print current working directory
+        run: ls -R
+
+      - name: Veracode Upload And Scan
+        uses: veracode/veracode-uploadandscan-action@0.2.6
+        with:
+          appname: 'VeraDemo'
+          createprofile: false
+          filepath: 'app/target/verademo.war'
+          vid: '${{ secrets.VID }}'
+          vkey: '${{ secrets.VKEY }}'
+          createsandbox: 'true'
+          sandboxname: 'SANDBOXNAME'
+          scantimeout: 0
+          exclude: '*.js'
+          include: '*.war'
+          criticality: 'VeryHigh'

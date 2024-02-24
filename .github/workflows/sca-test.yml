@@ -1,7 +1,7 @@
-name: Veracode_SCA
-on:
-  push:
-    branches: [ main ]
+# name: Veracode_SCA
+# on:
+#   push:
+#     branches: [ main ]
 
 permissions: 
     security-events: write
