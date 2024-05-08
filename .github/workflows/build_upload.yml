@@ -39,3 +39,4 @@ jobs:
           exclude: '*.js'
           include: '*.war'
           criticality: 'VeryHigh'
+# 
