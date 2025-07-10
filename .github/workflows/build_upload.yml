@@ -1,15 +1,15 @@
-name: Veracode_pipeline_scan
-on:
-  push:
-    branches: [ main ]
+# name: Veracode_pipeline_scan
+# on:
+#   push:
+#     branches: [ main ]
 
-permissions: 
-    security-events: write
+# permissions: 
+#     security-events: write
 
-jobs:
-  veracode-sca-task:
-    runs-on: ubuntu-latest
-    name: pipeline
+# jobs:
+#   veracode-sca-task:
+#     runs-on: ubuntu-latest
+#     name: pipeline
 
 
     steps:

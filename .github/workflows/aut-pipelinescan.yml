@@ -1,0 +1,39 @@
+name: Veracode Auto-Packaging and Pipeline Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  veracode-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Veracode CLI and Package Application
+        run: |
+          curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+          ./veracode package -vas . --output verascan
+
+          # Check if the verascan directory exists
+          if [ ! -d "verascan" ]; then
+            echo "Error: verascan directory not found."
+            exit 1
+          fi
+
+      - name: Veracode Pipeline Scan
+        env:
+          VERACODE_API_KEY_ID: ${{ secrets.VID }}
+          VERACODE_API_KEY_SECRET: ${{ secrets.VKEY }}
+        run: |
+          ./veracode policy get "Al-Test" --format json # Optional: replace with your actual policy
+          for file in verascan/*; do
+            if [ -f "$file" ]; then
+              echo "Scanning $file..."
+              ./veracode static scan "$file" --policy-file Al-Test.json
+            fi
+          done
