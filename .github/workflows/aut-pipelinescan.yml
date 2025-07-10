@@ -1,4 +1,4 @@
-name: Veracode Auto-Packaging and Pipeline Scan
+name: Veracode Auto-Packaging and Pipeline Scann
 
 on:
   push:
